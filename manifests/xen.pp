@@ -28,14 +28,14 @@ class xen::hardening {
     notify  => Service["sshd"],
     require => File['/etc/ssh/banner'],
   }
-  
+
   file { '/etc/ssh/sshd_config':
     ensure  => present,
     group   => 'root',
     mode    => '0600',
     owner   => 'root',
   }
-  
+
   # Manage shadow passwords:
   exec { 'login.defs PASS_MAX_DAYS':
     command => "/bin/sed -i -e 's/PASS_MAX_DAYS\t99999/PASS_MAX_DAYS   90/' /etc/login.defs",
@@ -176,7 +176,7 @@ class xen::hardening {
     content => '<html></html>',
     group   => 'wheel',
     mode    => '0644',
-    owner   => 'root',  
+    owner   => 'root',
   }
 
   exec { 'Add pts/0 as a secure TTY':
