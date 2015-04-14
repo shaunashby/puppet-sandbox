@@ -80,9 +80,10 @@ class xen::hardening {
 
   # For managing password history tracking:
   file { '/etc/security/opasswd':
-    group => 'root',
-    mode  => '0600',
-    owner => 'root',
+    ensure => present,
+    group  => 'root',
+    mode   => '0600',
+    owner  => 'root',
   }
 
   # Manage XAPI:
