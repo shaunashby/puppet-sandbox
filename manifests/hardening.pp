@@ -171,7 +171,7 @@ class xen::hardening {
 
   exec { 'No auto login on console':
     command => "/bin/sed -i -e 's/-f root/-p/' /usr/lib/xen/bin/dom0term.sh",
-    onlyif  => "/bin/grep '-f root' /usr/lib/xen/bin/dom0term.sh",
+    onlyif  => "/bin/grep -- '-f root' /usr/lib/xen/bin/dom0term.sh",
   }
 
   # Remove default Citrix landing page content:
