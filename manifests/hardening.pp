@@ -22,9 +22,8 @@ class xen::hardening {
                 "set RhostsRSAAuthentication no",
                 "set HostbasedAuthentication no",
                 "set PermitEmptyPasswords no",
-                "set PermitRootLogin no",
-                "set Ciphers aes256-cbc,aes128-cbc",
-                ],
+                "set PermitRootLogin yes"
+            ],
     notify  => Service["sshd"],
     require => File['/etc/ssh/banner'],
   }
