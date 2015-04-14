@@ -75,7 +75,6 @@ class xen::hardening {
   exec { 'Modify single-user mode to require a password':
     command => "/bin/echo '~~:S:wait:/sbin/sulogin' >> /etc/inittab",
     unless  => "/bin/grep '~~:S:wait:/sbin/sulogin' /etc/inittab",
-    require => File[ '/etc/ssh/sshd_config' ],
   }
 
   # For managing password history tracking:
