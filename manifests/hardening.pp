@@ -5,7 +5,7 @@ class xen::hardening {
 
   file { '/etc/ssh/banner':
     ensure  => present,
-    content => 'Welcome to a server managed by DFi Service SA. You have to follow the guidelines relevant to this server.',
+    content => "Welcome to a server managed by DFi Service SA. You have to follow the guidelines relevant to this server.\n",
     group   => 'root',
     mode    => '0600',
     owner   => 'root',
