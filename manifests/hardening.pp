@@ -86,24 +86,24 @@ class xen::hardening {
     owner  => 'root',
   }
 
-  # Manage XAPI:
-  file { '/etc/init.d/xapissl':
+  # Manage XAPI SSL source config:
+  file { '/etc/xensource/xapi-ssl.conf':
     ensure => present,
     group  => 'root',
-    mode   => '0755',
+    mode   => '0644',
     owner  => 'root',
   }
 
   # Replace the default SSL ciphers:
-  exec { 'Replace default SSL ciphers':
-    command => "/bin/sed -i -e 's/ciphers = !SSLv2:RSA+AES256-SHA:RSA+AES128-SHA:RSA+RC4-SHA:RSA+RC4-MD5:RSA+DES-CBC3-SHA/ciphers = AES128+EECDH:AES128+EDH:AES256+EECDH:AES256+EDH:HIGH:3DES:!PSK:!MD5:!aNULL:!eNULL/' /etc/init.d/xapissl",
-    unless  => "/bin/grep 'AES128+EECDH:AES128+EDH:AES256+EECDH:AES256+EDH:HIGH:3DES:!PSK:!MD5:!aNULL:!eNULL' /etc/init.d/xapissl",
-    require => File['/etc/init.d/xapissl'],
+  exec { 'Replace default SSL ciphers in /etc/xensource/xapi-ssl.conf':
+    command => "/bin/sed -i -e 's/ciphers = !SSLv2:RSA+AES256-SHA:RSA+AES128-SHA:RSA+RC4-SHA:RSA+RC4-MD5:RSA+DES-CBC3-SHA/ciphers = AES128+EECDH:AES128+EDH:AES256+EECDH:AES256+EDH:HIGH:3DES:!PSK:!MD5:!aNULL:!eNULL/' /etc/xensource/xapi-ssl.conf",
+    unless  => "/bin/grep 'AES128+EECDH:AES128+EDH:AES256+EECDH:AES256+EDH:HIGH:3DES:!PSK:!MD5:!aNULL:!eNULL' /etc/xensource/xapi-ssl.conf",
+    require => File['/etc/xensource/xapi-ssl.conf'],
+    notify  => Service['xapi'],
   }
 
-  service { 'xapissl':
-    ensure    => running,
-    subscribe => File['/etc/init.d/xapissl'],
+  service { 'xapi':
+    ensure => running,
   }
 
   file { '/etc/sysconfig/iptables':
