@@ -33,6 +33,10 @@ class xen::hardening {
     group   => 'root',
     mode    => '0600',
     owner   => 'root',
+  }->
+  file_line { 'sshd_config ciphers':
+    line => 'Ciphers aes256-cbc,aes128-cbc',
+    path => '/etc/ssh/sshd_config',
   }
 
   # Manage shadow passwords:
