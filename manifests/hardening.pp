@@ -61,7 +61,7 @@ class xen::hardening {
   }
 
   exec { 'Check that shadow passwords are enabled and that login.defs has been modified':
-    command => "/usr/bin/pwconv",
+    command => "/usr/sbin/pwconv",
     unless  => "/usr/bin/test -f /etc/shadow",
     require => [
                 Exec['login.defs PASS_MAX_DAYS'],
