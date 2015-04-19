@@ -1,7 +1,7 @@
 require 'spec_helper'
-describe 'sandbox2' do
+describe 'sandbox' do
 
   context 'with defaults for all parameters' do
-    it { should contain_class('sandbox2') }
+    it { should contain_class('sandbox') }
   end
 end
